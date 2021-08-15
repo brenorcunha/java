@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(OnlyExplicitlyIncluded=true)
+@EqualsAndHashCode(onlyExplicitlyIncluded=true)
 @Entity
 public class Cliente {
     @EqualsAndHashCode.Include

@@ -1,21 +1,22 @@
 package com.algaworks.algalog.algalogapi;
-import java.util.Arrays;
-import java.util.List;
+//import java.util.Arrays;
+//import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ClienteController {
-    //Quando conectar no BD, desativar os cmentarios, pra ele utilizar o JPA:
     @PersistenceContext
-    private EntityManager manager
+    private EntityManager manager;
+    //Quando conectar no BD, desativar os comentarios, pra ele utilizar o JPA:
     
     @GetMapping("/Cliente")
-    public List<Cliente> listar(){
-        //Aqui, descomentar linha abaixo e apagar/comentar o resto: 
+    public Query listar(){ 
         return manager.createQuery("from Cliente, Cliente.class");
         /*
         var cliente1 = new Cliente();
