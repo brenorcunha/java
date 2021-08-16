@@ -1,11 +1,8 @@
 package com.algaworks.algalog.algalogapi;
-//import java.util.Arrays;
-//import java.util.List;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +13,8 @@ public class ClienteController {
     //Quando conectar no BD, desativar os comentarios, pra ele utilizar o JPA:
     
     @GetMapping("/Cliente")
-    public Query listar(){ 
-        return manager.createQuery("from Cliente, Cliente.class");
+    public List<Cliente> listar(){ 
+        return manager.createQuery("from Cliente", Cliente.class).getResultList();
         /*
         var cliente1 = new Cliente();
         cliente1.setNome("Joao das Couves2");
