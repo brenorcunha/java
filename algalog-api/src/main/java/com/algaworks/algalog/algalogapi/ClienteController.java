@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClienteController {
     @PersistenceContext
     private EntityManager manager;
-    //Quando conectar no BD, desativar os comentarios, pra ele utilizar o JPA:
-    
-    @GetMapping("/Cliente")
-    public List<Cliente> listar(){ 
-        return manager.createQuery("from Cliente", Cliente.class).getResultList();
+
+    @GetMapping("/cliente")
+    public List<cliente> listar(){ 
+        return manager.createQuery("from cliente", cliente.class).getResultList();
         /*
         var cliente1 = new Cliente();
         cliente1.setNome("Joao das Couves2");
