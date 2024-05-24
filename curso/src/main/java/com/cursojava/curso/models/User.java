@@ -1,6 +1,6 @@
 package com.cursojava.curso.models;
 
-public class Usuario{
+public class User{
     public Long getId() {
         return Id;
     }
@@ -9,18 +9,13 @@ public class Usuario{
     }
     private Long Id;
 
-    private String FirstName;
-    public String getFirstName() {
-        return FirstName;
+    private String Name;
+    
+    public String getName() {
+        return Name;
     }
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
-    }
-    public String getLastName() {
-        return LastName;
-    }
-    public void setLastName(String lastName) {
-        LastName = lastName;
+    public void setName(String name) {
+        Name = name;
     }
     public String getEmail() {
         return Email;
@@ -34,7 +29,6 @@ public class Usuario{
     public void setPhone(String phone) {
         Phone = phone;
     }
-    private String LastName;
     private String Email;
     private String Phone;
 }

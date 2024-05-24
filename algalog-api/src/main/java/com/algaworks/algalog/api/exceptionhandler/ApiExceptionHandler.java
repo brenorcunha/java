@@ -27,8 +27,9 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private MessageSource messageSource;
 	
+	@SuppressWarnings("null")
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(@SuppressWarnings("null") MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		List<Problema.Campo> campos = new ArrayList<>();
 		
