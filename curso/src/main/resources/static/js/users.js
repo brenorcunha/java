@@ -18,7 +18,8 @@ async function chargeUser() {
   let usersList = ' ';
   for (let user of users) {
     let userHtml = '<tr><td>'+user.id+'</td><td>'+ 
-    user.name+'</td><td>' +
+    user.firstName+'</td><td>' +
+    user.lastName+'</td><td>' +
     user.email +'</td><td>'+ 
     user.phone+'</td><td><a href="s" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td></tr>';
     usersList+=userHtml
