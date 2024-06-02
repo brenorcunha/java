@@ -7,6 +7,7 @@ import com.cursojava.curso.models.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
     @Autowired
     private UserDAO userDAO;
-    @RequestMapping("user/{id}")
-    public User getUser(@PathVariable Long id){
+    @GetMapping(value = "user/{id}")
+    public User getUser(@PathVariable Integer id){
         User user = new User();
         user.setId(id);
         user.setFirstName("Breno");
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "users")
-    public List<User> getUser(){
+    public List<User> getUsers(){
         /* List<User> users = new ArrayList<>();
         User user = new User();
         user.setId(123L);
@@ -60,7 +61,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "setUser/{id}")
-    public User setUser(@PathVariable Long id){
+    public User setUser(@PathVariable Integer id){
         User user = new User();
         user.setId(id);
         user.setFirstName("Breno");
@@ -70,12 +71,8 @@ public class UserController {
         return user;
     }
 
-    @DeleteMapping("delUser/{id}")
-    public User delUser(@PathVariable Long id){
-        User user = new User();
-        // user.setId(id);
-        // user.setFirstName("Brendon");
-        // user.setLastName("A");
-        return user;
+    @DeleteMapping("user/{id}")
+    public void delUser(@PathVariable Integer id){
+        userDAO.delUser(id);
     }
 }

@@ -12,7 +12,7 @@ import com.cursojava.curso.models.User;
 @Repository
 @Transactional
 @PersistenceContext
-public class UserDAOImp implements UserDAO {
+public class UserDAOImpl implements UserDAO {
     private EntityManager entityManager;
     @SuppressWarnings("unchecked")
     @Override
@@ -20,5 +20,9 @@ public class UserDAOImp implements UserDAO {
         String query = "FROM User";
         return entityManager.createQuery(query).getResultList();
     }
-    
+    @Override
+	public void delUser(Integer id){
+		User user = entityManager.find(User.class, id);
+		entityManager.remove(user);
+	}
 }

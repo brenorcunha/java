@@ -17,7 +17,7 @@ public class User{
     //Due to Lombok use: 
     @Id
     @Getter @Setter @Column(name="id")
-    private Long Id;
+    private Integer id;
 
     @Getter @Setter @Column(name="firstName")
     private String FirstName;
@@ -34,7 +34,7 @@ public class User{
     public Long getId() {
         return Id;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
         Id = id;
     }
     

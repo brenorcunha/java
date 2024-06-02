@@ -22,7 +22,7 @@ public class AlgalogApiApplication {
         "email": "bettocunha@alga.com",
         "telefone": "(12) 92000-0000"
     }
-	PUT: Aí precisa mandar o dado a ser alterado na uRL. Ex:
+	PUT: Aí precisa mandar o dado a ser alterado na URL. Ex:
 	http://localhost:8080/clientes/3 (Quero alterar dados do cliente de ID 3).
 
 	 No BODY:
