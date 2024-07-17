@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS `curso` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+CREATE SCHEMA IF NOT EXISTS `curso` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `curso`;
 create table Users(
 id integer primary key not null auto_increment,

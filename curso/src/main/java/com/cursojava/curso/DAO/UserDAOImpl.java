@@ -4,25 +4,26 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cursojava.curso.models.User;
 @Repository
 @Transactional
 @PersistenceContext
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAO{
     private EntityManager entityManager;
     @SuppressWarnings("unchecked")
     @Override
-    public List<User> getUsers() {
-        String query = "FROM User";
+    public List<User> getUsers(){
+        String query = "FROM users";
         return entityManager.createQuery(query).getResultList();
-    }
+    };
     @Override
-	public void delUser(Integer id){
-		User user = entityManager.find(User.class, id);
+    public void delUser(Integer id){
+        User user = entityManager.find(User.class, id);
 		entityManager.remove(user);
-	}
+    };
+
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
     @Autowired
     private UserDAO userDAO;
-    @GetMapping(value = "user/{id}")
+    @GetMapping(value = "users/{id}")
     public User getUser(@PathVariable Integer id){
         User user = new User();
         user.setId(id);
@@ -29,18 +29,19 @@ public class UserController {
         return user;
     }
 
-    @RequestMapping(value = "users")
+    @GetMapping("users")
     public List<User> getUsers(){
+        return userDAO.getUsers();
         /* List<User> users = new ArrayList<>();
         User user = new User();
-        user.setId(123L);
+        user.setId(123);
         user.setFirstName("Breno");
         user.setLastName("da Cunha");
         user.setEmail("breno@email.com");
         user.setPhone("08001110000");
 
         User user2 = new User();
-        user2.setId(124L);
+        user2.setI(124);
         user2.setFirstName("Bruno");
         user2.setLastName("Fontoura");
         user2.setEmail("bruno@email.com");
@@ -57,7 +58,6 @@ public class UserController {
         users.add(user2);
         users.add(user3); 
         return users; */
-        return userDAO.getUsers();
     }
 
     @RequestMapping(value = "setUser/{id}")
@@ -71,7 +71,7 @@ public class UserController {
         return user;
     }
 
-    @DeleteMapping("user/{id}")
+    @DeleteMapping("users/{id}")
     public void delUser(@PathVariable Integer id){
         userDAO.delUser(id);
     }
