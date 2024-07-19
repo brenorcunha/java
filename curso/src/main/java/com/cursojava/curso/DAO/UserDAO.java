@@ -7,4 +7,6 @@ import com.cursojava.curso.models.User;
 public interface UserDAO {
     List<User> getUsers();
     void delUser(Integer id);
+    User getUser(Integer id);
+    void registerUser(User user);
 }

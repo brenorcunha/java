@@ -2,6 +2,8 @@ package com.cursojava.curso.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,6 +18,7 @@ import lombok.ToString;
 public class User{
     //Due to Lombok use: 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Getter @Setter @Column(name="id")
     private Integer id;
 
@@ -30,6 +33,9 @@ public class User{
 
     @Getter @Setter @Column(name="phone")
     private String Phone;
+
+    @Getter @Setter @Column(name="password")
+    private String password;
 /* 
     public Long getId() {
         return Id;
@@ -61,5 +67,13 @@ public class User{
     }
     public void setLastName(String lastName) {
         LastName = lastName;
+    }
+
+    public User(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     } */
 }
