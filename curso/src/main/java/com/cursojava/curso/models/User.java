@@ -1,11 +1,6 @@
 package com.cursojava.curso.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,10 +17,10 @@ public class User{
     @Getter @Setter @Column(name="id")
     private Integer id;
 
-    @Getter @Setter @Column(name="firstName")
+    @Getter @Setter @Column(name="first_name")
     private String FirstName;
 
-    @Getter @Setter @Column (name="lastName")
+    @Getter @Setter @Column (name="last_name")
     private String LastName;
 
     @Getter @Setter @Column(name="email")
@@ -59,14 +54,14 @@ public class User{
     public String getFirstName() {
         return FirstName;
     }
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setFirstName(String first_name) {
+        FirstName = first_name;
     }
     public String getLastName() {
         return LastName;
     }
-    public void setLastName(String lastName) {
-        LastName = lastName;
+    public void setLastName(String last_name) {
+        LastName = last_name;
     }
 
     public User(String password) {

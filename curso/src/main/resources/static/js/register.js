@@ -4,8 +4,8 @@ $(document).ready(function () {});
 // Function for sending all the data manually to the table in 'users.html'.
 async function registerUser() {
     const rdata = {};
-    rdata.firstName = document.getElementById('FirstName').value
-    rdata.lastName = document.getElementById('LastName').value
+    rdata.first_name = document.getElementById('FirstName').value
+    rdata.last_name = document.getElementById('LastName').value
     rdata.email = document.getElementById('InputEmail').value
     rdata.phone = document.getElementById('InputPhone').value
     rdata.password = document.getElementById('InputPassword').value
