@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public List<User> getUsers(){
         //The class name, not the table name!
-        String txt = "SELECT u FROM User";
+        String txt = "SELECT * FROM User";
         Query query = entityManager.createQuery(txt);
         List<User> users_ = query.getResultList();
         if(users_.isEmpty()){

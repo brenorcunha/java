@@ -12,9 +12,9 @@ email varchar(255),
 phone varchar(50),
 password char(50)
 );
-INSERT INTO users VALUES(0, "Breno","da Cunha","breno@email.com","(10) 90000-0000","1234"),
+INSERT INTO Users VALUES(0, "Breno","da Cunha","breno@email.com","(10) 90000-0000","1234"),
 (0,"Bruno", "Fontoura","bruno@email.com","(10) 90000-0001", "1234"),
-(0, "Brendon", "A", "brendon@email.com","(10) 90000-00002", "1234");
+(0, "Brendon", "Alves", "brendon@email.com","(10) 90000-00002", "1234");
 GRANT ALL PRIVILEGES ON *.* TO 'breno'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-select * from users;
+select * from Users;

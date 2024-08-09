@@ -5,6 +5,7 @@ $(document).ready(function () {
 
 async function chargeUsers() {
   try {
+    const usersList = [];
     const response = await fetch(`/users`, {
       method: "GET",
       headers: {
@@ -12,34 +13,31 @@ async function chargeUsers() {
         "Content-Type": "application/json",
       },
     });
-   let usersList = {};
-    if (!response.ok) {
-      throw new Error("Failed to fetch user data");
-    } else {
-      //const users = await response.json();
-      usersList = response.length
-        ? users
-            .map(
-              (user) => `
-              <tr>
-                <td>${user.id}</td>
-                <td>${user.first_name}</td>
-                <td>${user.last_name}</td>
-                <td>${user.email}</td>
-                <td>${user.phone}</td>
-                <td>
-                  <button onclick="delUser(${user.id})" class="btn btn-danger btn-circle btn-sm">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
+    const users = await response.json();
+     if(!users || users.length ===0){
+        document.querySelector("#users tbody").innerHTML = '<tr><td colspan="6">There are no users in this table (1).</td></tr>';
+      } else{
+        usersList = users.map(
+          (user) => `
+            <tr>
+              <td>${user.id}</td>
+              <td>${user.first_name}</td>
+              <td>${user.last_name}</td>
+              <td>${user.email}</td>
+              <td>${user.phone}</td>
+              <td>
+                <button onclick="delUser(${user.id})" class="btn btn-danger btn-circle btn-sm">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
             `
             )
-            .join("")
-        : '<tr><td colspan="6">There are no users in this table.</td></tr>';
-    }
-    document.querySelector("#users tbody").innerHTML = usersList;
+            .join("");
+            document.querySelector("#users tbody").innerHTML = usersList;
+      }
   } catch (error) {
+    document.querySelector("#users tbody").innerHTML = '<tr><td colspan="6">There are no users in this table.</td></tr>';
     console.error("Error fetching user data:", error);
   }
 }
