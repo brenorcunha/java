@@ -1,5 +1,6 @@
 package com.cursojava.curso.models;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
 import lombok.EqualsAndHashCode;
@@ -10,17 +11,17 @@ import lombok.ToString;
 @Entity
 @Table(name = "users")
 @ToString @EqualsAndHashCode
-public class User{
+public class User implements Serializable{
     //Due to Lombok use: 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Getter @Setter @Column(name="id")
     private Integer id;
 
-    @Getter @Setter @Column(name="first_name")
+    @Getter @Setter @Column(name="fname")
     private String FirstName;
 
-    @Getter @Setter @Column (name="last_name")
+    @Getter @Setter @Column (name="lname")
     private String LastName;
 
     @Getter @Setter @Column(name="email")

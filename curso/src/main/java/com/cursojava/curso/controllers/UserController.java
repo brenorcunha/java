@@ -2,21 +2,16 @@ package com.cursojava.curso.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cursojava.curso.DAO.UserDAO;
 import com.cursojava.curso.models.User;
 
 @RestController
 public class UserController {
+    @Autowired
     private UserDAO userDAO;
     
     @GetMapping(value = "/user/{id}")
@@ -30,7 +25,7 @@ public class UserController {
         user.setPhone("08001110000");
         return user; */
     }
-    //CONT. DE 3:06h - ERRO 500 e Failed to FETCH DATA at chargeUsers();
+    //CONT. DE 3:06h
     @GetMapping("/users")
     public List<User> getUsers(){
         return userDAO.getUsers();
@@ -61,6 +56,7 @@ public class UserController {
         users.add(user3); 
         return users; */
     }
+    
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public void registerUser(@RequestBody User user){

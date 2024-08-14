@@ -22,9 +22,9 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public List<User> getUsers(){
         //The class name, not the table name!
-        String txt = "SELECT * FROM User";
-        Query query = entityManager.createQuery(txt);
-        List<User> users_ = query.getResultList();
+        final String txt = "FROM User";
+        final Query query = entityManager.createQuery(txt);
+        final List<User> users_ = query.getResultList();
         if(users_.isEmpty()){
         return Collections.EMPTY_LIST;
         } else {
@@ -32,21 +32,21 @@ public class UserDAOImpl implements UserDAO{
         }
     };
     @Override
-    public void delUser(Integer id){
-        User user = entityManager.find(User.class, id);
+    public void delUser(final Integer id){
+        final User user = entityManager.find(User.class, id);
 		entityManager.remove(user);
     };
     @Override
-    public User getUser(Integer id) {
+    public User getUser(final Integer id) {
         return entityManager.find(User.class, id);
     };
     
     @Override
-    public void register(User user) {
+    public void register(final User user) {
        entityManager.merge(user);
     }
     @Override
-    public User setUser(Integer id, User updatedUser) {
+    public User setUser(final Integer id, final User updatedUser) {
         return updatedUser;
     };
 };

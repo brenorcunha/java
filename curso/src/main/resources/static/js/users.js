@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 async function chargeUsers() {
   try {
-    const usersList = [];
+    let users = Array();
     const response = await fetch(`/users`, {
       method: "GET",
       headers: {
@@ -13,16 +13,16 @@ async function chargeUsers() {
         "Content-Type": "application/json",
       },
     });
-    const users = await response.json();
-     if(!users || users.length ===0){
+    users = await response.json();
+     if(!Array.isArray(users)|| users.length ===0){
         document.querySelector("#users tbody").innerHTML = '<tr><td colspan="6">There are no users in this table (1).</td></tr>';
       } else{
-        usersList = users.map(
+        let usersList = users.map(
           (user) => `
             <tr>
               <td>${user.id}</td>
-              <td>${user.first_name}</td>
-              <td>${user.last_name}</td>
+              <td>${user.firstName}</td>
+              <td>${user.lastName}</td>
               <td>${user.email}</td>
               <td>${user.phone}</td>
               <td>
