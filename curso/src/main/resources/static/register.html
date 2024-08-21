@@ -34,7 +34,7 @@
           <!-- Nested Row within Card Body -->
           <div class="row">
             <div class="col-lg-5 d-none d-lg-block bg-register-image">
-                <img src="./img/undraw_posting_photo.svg" alt="Welcome!">
+                <img src="./img/undraw_posting_photo.svg" alt="Welcome!" style="max-width: 120%; max-height: fit-content;margin-top: 33%;">
             </div>
             <div class="col-lg-7">
               <div class="p-5">
@@ -47,7 +47,7 @@
                       <input
                         type="text"
                         class="form-control form-control-user"
-                        id="FirstName"
+                        id="InputFirstName"
                         placeholder="First Name"
                       />
                     </div>
@@ -55,7 +55,7 @@
                       <input
                         type="text"
                         class="form-control form-control-user"
-                        id="LastName"
+                        id="InputLastName"
                         placeholder="Last Name"
                       />
                     </div>
@@ -96,10 +96,7 @@
                   </div>
                   <!-- The href=# blocks redirections: -->
                   <a
-                    onclick="registerUser()"
-                    href="#"
-                    class="btn btn-primary btn-user btn-block"
-                  >
+                    href="#" class="btn btn-primary btn-user btn-block" onclick="registerUser()">
                     Register Account
                   </a>
                 </form>

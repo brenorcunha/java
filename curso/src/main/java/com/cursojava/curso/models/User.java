@@ -1,6 +1,5 @@
 package com.cursojava.curso.models;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 import lombok.EqualsAndHashCode;
@@ -11,17 +10,17 @@ import lombok.ToString;
 @Entity
 @Table(name = "users")
 @ToString @EqualsAndHashCode
-public class User implements Serializable{
-    //Due to Lombok use: 
+//Due to Lombok use: 
+public class User{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Getter @Setter @Column(name="id")
     private Integer id;
 
-    @Getter @Setter @Column(name="fname")
+    @Getter @Setter @Column(name="first_name")
     private String FirstName;
-
-    @Getter @Setter @Column (name="lname")
+    
+    @Getter @Setter @Column (name="last_name")
     private String LastName;
 
     @Getter @Setter @Column(name="email")
@@ -31,7 +30,7 @@ public class User implements Serializable{
     private String Phone;
 
     @Getter @Setter @Column(name="password")
-    private String password;
+    private String Password;
 /* 
     public Long getId() {
         return Id;
@@ -40,18 +39,6 @@ public class User implements Serializable{
         Id = id;
     }
     
-    public String getEmail() {
-        return Email;
-    }
-    public void setEmail(String email) {
-        Email = email;
-    }
-    public String getPhone() {
-        return Phone;
-    }
-    public void setPhone(String phone) {
-        Phone = phone;
-    }
     public String getFirstName() {
         return FirstName;
     }
@@ -64,7 +51,18 @@ public class User implements Serializable{
     public void setLastName(String last_name) {
         LastName = last_name;
     }
-
+    public String getEmail() {
+        return Email;
+    }
+    public void setEmail(String email) {
+        Email = email;
+    }
+    public String getPhone() {
+        return Phone;
+    }
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
     public User(String password) {
         this.password = password;
     }

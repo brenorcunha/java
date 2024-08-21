@@ -25,7 +25,7 @@ public class UserController {
         user.setPhone("08001110000");
         return user; */
     }
-    //CONT. DE 3:06h
+    
     @GetMapping("/users")
     public List<User> getUsers(){
         return userDAO.getUsers();
@@ -56,13 +56,22 @@ public class UserController {
         users.add(user3); 
         return users; */
     }
-    
+    //Auth function: 
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerUser(@RequestBody User user){
-        userDAO.register(user);
+    public String startSession(@RequestBody User user){
+        if(userDAO.startSession(user)){
+            return "OK";
+        } else {
+            return "Login failed! Try again.";
+        }
     }
 
+    @PostMapping("/register")
+    public void register(@RequestBody User user) {
+        userDAO.register(user); 
+    }
+    
     @PutMapping("/setUser/{id}")
     public User setUser(@PathVariable Integer id, @RequestBody User updatedUser){
         /* User user = new User();
@@ -71,7 +80,7 @@ public class UserController {
         user.setLastName("da Cunha");
         user.setEmail("breno@email.com");
         user.setPhone("08001110000"); */
-        return null;
+        return userDAO.setUser(id, updatedUser);
     }
 
     @DeleteMapping("/user/{id}")
