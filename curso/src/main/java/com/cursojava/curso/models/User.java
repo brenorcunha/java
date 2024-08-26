@@ -16,21 +16,21 @@ public class User{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Getter @Setter @Column(name="id")
     private Integer id;
-
+    
+    @Getter @Setter @Column(name="email")
+    private String email;
+    
     @Getter @Setter @Column(name="first_name")
-    private String FirstName;
+    private String firstName;
     
     @Getter @Setter @Column (name="last_name")
-    private String LastName;
-
-    @Getter @Setter @Column(name="email")
-    private String Email;
+    private String lastName;
 
     @Getter @Setter @Column(name="phone")
-    private String Phone;
+    private String phone;
 
     @Getter @Setter @Column(name="password")
-    private String Password;
+    private String password;
 /* 
     public Long getId() {
         return Id;
@@ -40,16 +40,16 @@ public class User{
     }
     
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
     public void setFirstName(String first_name) {
-        FirstName = first_name;
+        firstName = first_name;
     }
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
     public void setLastName(String last_name) {
-        LastName = last_name;
+        lastName = last_name;
     }
     public String getEmail() {
         return Email;

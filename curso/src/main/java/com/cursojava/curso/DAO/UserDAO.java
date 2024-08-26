@@ -9,5 +9,5 @@ public interface UserDAO{
     User getUser(Integer id);
     User setUser(Integer id, User updatedUser);
     void register(User user);
-    boolean startSession(User user);
+    User startSession(User user);
 };

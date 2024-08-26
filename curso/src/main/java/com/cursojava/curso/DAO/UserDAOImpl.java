@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cursojava.curso.models.User;
+
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 @Repository
 @Transactional
 @Persistent
@@ -50,12 +53,21 @@ public class UserDAOImpl implements UserDAO{
     }
     // if we insert the attributes inline ('"+ user.email + "') it can be used to make an injection SQL attack! So we do instead: 
     @Override
-    public boolean startSession(User user) {
+    public User startSession(User user) {
         String txt = "FROM User WHERE email = :email AND password = :password";
         @SuppressWarnings("unchecked")
         List<User> list = entityManager.createQuery(txt).setParameter("email", user.getEmail()).setParameter("password", user.getPassword()).getResultList();
+        if(list.isEmpty()){ return null; }
+        //return !list.isEmpty(); OLD CODE WITHOUT HASHING.
         //The following line is 2 return if the login was successfull: 
-        return !list.isEmpty();
+        String hPassword = list.get(0).getPassword();
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        if(argon2.verify(hPassword, user.getPassword())){
+            return list.get(0);
+        }else{
+            //Unsuccessfull login...
+            return null;
+        }
     }
     @Override
     @Transactional

@@ -1,30 +1,37 @@
 $(document).ready(function () {
   chargeUsers();
-  $('#users').DataTable({});
+  $("#users").DataTable({});
+  showEmail();
 });
 
+function showEmail() {
+  document.getElementById("txtEmail").innerHTML = localStorage.email;
+}
 async function chargeUsers() {
   try {
     let users = Array();
     const response = await fetch(`/users`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": localStorage.token
       },
     });
     users = await response.json();
-     if(!Array.isArray(users)|| users.length ===0){
-        document.querySelector('#users tbody').innerHTML = '<tr><td colspan="6">There are no users in this table (1).</td></tr>';
-      } else{
-        let usersList = users.map(
+    if (!Array.isArray(users) || users.length === 0) {
+      document.querySelector("#users tbody").innerHTML =
+        '<tr><td colspan="6">There are no users in this table (1).</td></tr>';
+    } else {
+      let usersList = users
+        .map(
           (user) => `
             <tr>
               <td>${user.id}</td>
-              <td>${user.FirstName}</td>
-              <td>${user.LastName}</td>
-              <td>${user.Email}</td>
-              <td>${user.Phone}</td>
+              <td>${user.email}</td>
+              <td>${user.firstName}</td>
+              <td>${user.lastName}</td>
+              <td>${user.phone}</td>
               <td>
                 <button onclick='delUser(${user.id})' class='btn btn-danger btn-circle btn-sm'>
                   <i class='fas fa-trash'></i>
@@ -32,27 +39,29 @@ async function chargeUsers() {
               </td>
             </tr>
             `
-            )
-            .join('');
-            document.querySelector('#users tbody').innerHTML = usersList;
-      }
+        )
+        .join("");
+      document.querySelector("#users tbody").innerHTML = usersList;
+    }
   } catch (error) {
-    document.querySelector('#users tbody').innerHTML = '<tr><td colspan="6">There are no users in this table.</td></tr>';
-    console.error('Error fetching user data:', error);
+    document.querySelector("#users tbody").innerHTML =
+      '<tr><td colspan="6">There are no users in this table.</td></tr>';
+    console.error("Error fetching user data:", error);
   }
 }
 
 async function delUser(id) {
-  if (!confirm('Do you want to DELETE this user?')) {
+  if (!confirm("Do you want to DELETE this user?")) {
     return;
   }
 
   try {
     await fetch(`/user/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": localStorage.token
       },
     });
 
@@ -60,6 +69,6 @@ async function delUser(id) {
     chargeUsers();
     alert(`DELETED id: ${id}`);
   } catch (error) {
-    console.error('Error deleting user:', error);
+    console.error("Error deleting user:", error);
   }
 }

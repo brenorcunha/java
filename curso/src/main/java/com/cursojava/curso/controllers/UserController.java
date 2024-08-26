@@ -1,5 +1,6 @@
 package com.cursojava.curso.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,18 @@ import org.springframework.web.bind.annotation.*;
 
 import com.cursojava.curso.DAO.UserDAO;
 import com.cursojava.curso.models.User;
+import com.cursojava.curso.utils.JWTUtil;
+
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 
 @RestController
 public class UserController {
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private JWTUtil jwtUtil;
     
     @GetMapping(value = "/user/{id}")
     public User getUser(@PathVariable Integer id){
@@ -27,7 +35,10 @@ public class UserController {
     }
     
     @GetMapping("/users")
-    public List<User> getUsers(){
+    public List<User> getUsers(@RequestHeader(value="Authorization") String token){
+        //In 'token' variable keeps the token with the user info.
+        String usrId = jwtUtil.getKey(token);
+        if(usrId == null){return new ArrayList<>();}
         return userDAO.getUsers();
         /* List<User> users = new ArrayList<>();
         User user = new User();
@@ -60,16 +71,19 @@ public class UserController {
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public String startSession(@RequestBody User user){
-        if(userDAO.startSession(user)){
-            return "OK";
-        } else {
-            return "Login failed! Try again.";
+        User loggedUser = userDAO.startSession(user);
+        if(loggedUser != null){
+            return jwtUtil.create(String.valueOf(loggedUser.getId()), loggedUser.getEmail());
         }
+        return "Login failed! Try again...";
     }
 
     @PostMapping("/register")
     public void register(@RequestBody User user) {
-        userDAO.register(user); 
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(1, 1024, 1, user.getPassword());
+        user.setPassword(hash);
+        userDAO.register(user);
     }
     
     @PutMapping("/setUser/{id}")
@@ -85,7 +99,8 @@ public class UserController {
 
     @DeleteMapping("/user/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delUser(@PathVariable Integer id){
-        userDAO.delUser(id);
+    public void delUser(@RequestHeader(value="Authorization") String token, @PathVariable Integer id){
+        String usrId = jwtUtil.getKey(token);
+        if(usrId != null){ userDAO.delUser(id);}
     }
 }
