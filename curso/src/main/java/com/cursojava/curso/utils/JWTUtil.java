@@ -28,6 +28,7 @@ public class JWTUtil {
     @Value("${security.jwt.ttlMillis}")
     private long ttlMillis;
 
+    @SuppressWarnings("unused")
     private final Logger log = LoggerFactory
             .getLogger(JWTUtil.class);
 

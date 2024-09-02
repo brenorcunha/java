@@ -5,21 +5,24 @@ $(document).ready(function () {
 });
 
 function showEmail() {
-  document.getElementById("txtEmail").innerHTML = localStorage.email;
+  var email = localStorage.getItem("email")
+  if (email) {
+    document.getElementById("txtEmail").innerHTML = email;
+  }
 }
 async function chargeUsers() {
   try {
     let users = Array();
-    const response = await fetch(`/users`, {
+    const response = await fetch("http://localhost:8080/users", {
       method: "GET",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": localStorage.token
+        "Authorization": localStorage.token,
       },
     });
     users = await response.json();
-    if (!Array.isArray(users) || users.length === 0) {
+    if (users.length == 0) {
       document.querySelector("#users tbody").innerHTML =
         '<tr><td colspan="6">There are no users in this table (1).</td></tr>';
     } else {
