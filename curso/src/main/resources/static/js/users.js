@@ -5,9 +5,11 @@ $(document).ready(function () {
 });
 
 function showEmail() {
-  var email = localStorage.getItem("email")
+  var email = localStorage.getItem("email");
   if (email) {
     document.getElementById("txtEmail").innerHTML = email;
+  } else{
+    window.location.href="login.html";
   }
 }
 async function chargeUsers() {
@@ -16,9 +18,9 @@ async function chargeUsers() {
     const response = await fetch("http://localhost:8080/users", {
       method: "GET",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": localStorage.token,
+        Authorization: localStorage.token,
       },
     });
     users = await response.json();
@@ -62,9 +64,9 @@ async function delUser(id) {
     await fetch(`/user/${id}`, {
       method: "DELETE",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
-        "Authorization": localStorage.token
+        Authorization: localStorage.token,
       },
     });
 

@@ -46,7 +46,8 @@ public class UserController {
         if(usrId == null || usrId.isEmpty()){
             System.out.println("[FAIL] Unsuccessfull login - EMPTY TOKEN");
             return null;}
-        else {return userDAO.getUsers();}
+        else {return userDAO.getUsers();
+        }
         /* List<User> users = new ArrayList<>();
         User user = new User();
         user.setId(123);
@@ -73,19 +74,6 @@ public class UserController {
         users.add(user2);
         users.add(user3); 
         return users; */
-    }
-    //Auth function: 
-    @PostMapping("/user")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String startSession(@RequestBody User user){
-        User loggedUser = userDAO.startSession(user);
-        System.out.println(loggedUser);
-        if(loggedUser != null){
-            String tokenJwt = jwtUtil.create(String.valueOf(loggedUser.getId()), loggedUser.getEmail());
-            return tokenJwt;
-        } else{
-            return "Login failed! Try again...";
-        }
     }
 
     @PostMapping("/users")

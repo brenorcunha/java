@@ -19,10 +19,22 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <script type="text/javascript">
+        function cleanSession(){
+            localStorage.clear();
+        }
+        function showEmail() {
+            var email = localStorage.getItem("email");
+            if (email) {
+                document.getElementById("txtEmail").innerHTML = email;
+            } else{
+                window.location.href="login.html";
+            }
+        }
+    </script>
 </head>
 
-<body id="page-top">
+<body id="page-top" onclick="showEmail()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -731,7 +743,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="login.html" onclick="cleanSession()">Logout</a>
                 </div>
             </div>
         </div>

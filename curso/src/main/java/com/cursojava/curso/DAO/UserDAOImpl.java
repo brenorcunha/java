@@ -7,9 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Persistent;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cursojava.curso.models.User;
 
@@ -18,8 +20,10 @@ import de.mkammerer.argon2.Argon2Factory;
 @Repository
 @Transactional
 @Persistent
+@RestController
 public class UserDAOImpl implements UserDAO{
     @PersistenceContext
+    @Autowired
     EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
@@ -58,17 +62,15 @@ public class UserDAOImpl implements UserDAO{
 
         @SuppressWarnings("unchecked")
         List<User> list = entityManager.createQuery(txt).setParameter("email", user.getEmail()).getResultList();
-        if(list.isEmpty()){ return null; } else {
-            String hPassword = list.get(0).getPassword();
-            Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-            if(argon2.verify(hPassword, user.getPassword())){
-                return list.get(0);
-            }else{
-                System.out.println("[FAIL] Unsuccessfull login... VALIDATION PWD ERROR");
-                return null;
-            }
-        }
+        if(list.isEmpty()){ return null; }
 
+        String hPassword = list.get(0).getPassword();
+
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        if(argon2.verify(hPassword, user.getPassword())){
+            return list.get(0);
+        }
+        return null;
     }
     @Override
     @Transactional

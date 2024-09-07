@@ -13,11 +13,8 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
-
-/**
- * @author Mahesh
- */
-@Component
+//For component sharing and annotations also: 
+@Component 
 public class JWTUtil {
     @Value("${security.jwt.secret}")
     private String key;
@@ -28,31 +25,22 @@ public class JWTUtil {
     @Value("${security.jwt.ttlMillis}")
     private long ttlMillis;
 
-    @SuppressWarnings("unused")
-    private final Logger log = LoggerFactory
-            .getLogger(JWTUtil.class);
+    private final Logger log = LoggerFactory.getLogger(JWTUtil.class);
 
-    /**
-     * Create a new token.
-     *
-     * @param id
-     * @param subject
-     * @return
-     */
     public String create(String id, String subject) {
-
-        // The JWT signature algorithm used to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
 
-        //  sign JWT with our ApiKey secret
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(key);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-        //  set the JWT Claims
-        JwtBuilder builder = Jwts.builder().setId(id).setIssuedAt(now).setSubject(subject).setIssuer(issuer)
+        JwtBuilder builder = Jwts.builder()
+                .setId(id)
+                .setIssuedAt(now)
+                .setSubject(subject)
+                .setIssuer(issuer)
                 .signWith(signatureAlgorithm, signingKey);
 
         if (ttlMillis >= 0) {
@@ -61,37 +49,24 @@ public class JWTUtil {
             builder.setExpiration(exp);
         }
 
-        // Builds the JWT and serializes it to a compact, URL-safe string
-        return builder.compact();
+        String jwt = builder.compact();
+        log.info("Generated JWT: " + jwt);
+        return jwt;
     }
 
-    /**
-     * Method to validate and read the JWT
-     *
-     * @param jwt
-     * @return
-     */
     public String getValue(String jwt) {
-        // This line will throw an exception if it is not a signed JWS (as
-        // expected)
-        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key))
-                .parseClaimsJws(jwt).getBody();
-
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(key))
+                .parseClaimsJws(jwt)
+                .getBody();
         return claims.getSubject();
     }
 
-    /**
-     * Method to validate and read the JWT
-     *
-     * @param jwt
-     * @return
-     */
     public String getKey(String jwt) {
-        // This line will throw an exception if it is not a signed JWS (as
-        // expected)
-        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key))
-                .parseClaimsJws(jwt).getBody();
-
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(key))
+                .parseClaimsJws(jwt)
+                .getBody();
         return claims.getId();
     }
 }

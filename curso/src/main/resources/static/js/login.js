@@ -7,7 +7,7 @@ async function startSession() {
   rdata.email = document.getElementById('InputEmail').value;
   rdata.password = document.getElementById('InputPassword').value;
 
-  const request = await fetch("http://localhost:8080/user", {
+  const request = await fetch("http://localhost:8080/login", {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -16,12 +16,15 @@ async function startSession() {
     body: JSON.stringify(rdata),
     // Takes the response and converts it to a JSON String.
   });
-  const res = await request.text();está 
+  const res = await request.text();
   
   if (res == "Login failed! Try again..." || res == "") {
     alert("Login failed! Try again.");
   } else {
     localStorage.setItem("email",rdata.email);
-    window.location.href = "users.html";
+    localStorage.token = res;
+    if(!isTokenExpired(localStorage.token)){
+      window.location.href = "users.html";
+    }
   }
 }
